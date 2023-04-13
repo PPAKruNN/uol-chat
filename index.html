@@ -75,7 +75,7 @@
                     <b>João</b> para <b>Maria</b> eae muié, baaaaaaaaaaaaaaaaaaaora comer uns docin??!!
                 </span>
             </li>
-            <li class="reservado">
+            <li class="private_message">
                 <span>
                     (09:21:45) <b>João</b> para <b>Maria</b> eae muié, baaaaaaaaaaaaaaaaaaaora comer uns docin??!!
                 </span>
@@ -87,9 +87,10 @@
                 <input class="messageInput" type="text" placeholder="Escreva aqui...">    
                 <span class="input-extra-info">Enviando reservadamente para Maria</span>
             </div>
-            <img src="src/sendIcon.png" alt="Enviar mensagem" class="sendButton">
+            <img onclick="submitMessage()" src="src/sendIcon.png" alt="Enviar mensagem" class="sendButton">
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="src/scripts/main.js"></script>
 </body>
 </html>
