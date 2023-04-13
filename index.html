@@ -6,11 +6,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bate-papo UOL</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+
     <link rel="stylesheet" href="src/css/reset.css">
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="src/css/main.css">
 </head>
 <body>
+    <div class="content">
+        <header>
+            <img class="logo" src="src/logo.png" alt="Logo do Bate-papo Uol">
+            <img class="usersButton" src="src/users.png" alt="Botão de users">
+        </header>
     
+        <div class="disabled side-bar-black"></div>
+        <div class="disabled side-bar">
+            <div class="option-box">
+                <h1>Escolha um contato para enviar mensagem:</h1>
+                <div class="option">
+                    <img class="option-icon" src="src/users.png" alt="Todos">
+                    <span class="optionTitle">Todos</span>
+                    <img class="disabled option-check" src="src/check.png" alt="check">
+                </div>
+                
+                <div class="option">
+                    <img class="option-icon" src="src/userIcon.png" alt="Todos">
+                    <span class="optionTitle">João</span>
+                    <img class="disabled option-check" src="src/check.png" alt="check">
+                </div>
+    
+                <div class="option">
+                    <img class="option-icon" src="src/userIcon.png" alt="Todos">
+                    <span class="optionTitle">Maria</span>
+                    <img class="option-check" src="src/check.png" alt="check">
+                </div>
+            </div>
+    
+            <div class="option-box">
+                <h1>Escolha a visibilidade:</h1>
+                
+                <div class="option">
+                    <img class="option-icon" src="src/lockOpen.png" alt="Todos">
+                    <span class="optionTitle">Público</span>
+                    <img class="option-check" src="src/check.png" alt="check">
+                </div>
+                
+                <div class="option">
+                    <img class="option-icon" src="src/lockClosed.png" alt="Todos">
+                    <span class="optionTitle">Reservadamente</span>
+                    <img class="disabled option-check" src="src/check.png" alt="check">
+                </div>            
+            </div>
+        </div>
+    
+        <ul class="messages-box">
+            <li>
+                <span>
+                    (09:21:45) <b>João</b> entra na sala!
+                </span>
+            </li>
+            <li class="status">
+                <span>
+                    <span class="timestamp">
+                        (09:21:45)
+                    </span>
+                    <b>João</b> para <b>Maria</b> eae muié, baaaaaaaaaaaaaaaaaaaora comer uns docin??!!
+                </span>
+            </li>
+            <li class="reservado">
+                <span>
+                    (09:21:45) <b>João</b> para <b>Maria</b> eae muié, baaaaaaaaaaaaaaaaaaaora comer uns docin??!!
+                </span>
+            </li>    
+        </ul>
+    
+        <div class="bottom-bar">
+            <div class="input">
+                <input class="messageInput" type="text" placeholder="Escreva aqui...">    
+                <span class="input-extra-info">Enviando reservadamente para Maria</span>
+            </div>
+            <img src="src/sendIcon.png" alt="Enviar mensagem" class="sendButton">
+        </div>
+    </div>
     <script src="src/scripts/main.js"></script>
 </body>
 </html>
