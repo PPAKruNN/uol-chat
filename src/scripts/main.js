@@ -4,7 +4,6 @@ let username;
 let target = "Todos";
 let messageType = "message"
 
-
 let chatMessages = [];
 
 const endpoints = {
@@ -27,12 +26,11 @@ async function startup() {
         setInterval( keepAlive, 5000);
         reloadMessages();
         setInterval( reloadMessages, 3000)
-    })
-    
-    promisse.catch( (err) => {
-        console.log("Deu ruim!: " + err)
+    }, (err) => {
+        console.log("Deu ruim!: " + err.response.data)
         startup()  
     })
+    
 }
 
 function keepAlive() {
@@ -80,10 +78,10 @@ function createMessageElement(messageData) {
     const el = document.createElement("li")
     let connective = "";
 
-    if(messageData.type == "message") {
-        connective = "para"
-    }
-    else {
+    if (messageData.type == "message")          connective = "para"
+    if (messageData.type == "private_message")  connective = "reservadamente para"
+
+    if(messageData.type != "message") {
         el.classList.add(messageData.type); 
     }
 
@@ -99,14 +97,55 @@ function createMessageElement(messageData) {
     return el;
 }
 
+function createContactElement(name) {
+
+    const el = document.createElement("div")
+    
+    const contact = `
+    <div onclick="selectOption(this)" class="option">
+        <img class="option-icon" src="src/users.png" alt="Todos">
+        <span class="optionTitle">${name}</span>
+        <img class="disabled option-check" src="src/check.png" alt="check">
+    </div>
+    `
+    el.innerHTML = contact
+    return el.firstElementChild;
+}
+
+function renderUsers() {
+    const optionBox = document.querySelector("#contato");
+    const h1 = document.createElement("h1")
+    h1.innerHTML = "Escolha um contato para enviar mensagem:"
+    optionBox.innerHTML = "";
+
+    optionBox.append(h1); // Recriando h1
+    optionBox.append(createContactElement("Todos")); // Recriando opção de "todos".
+
+    const promisse = getParticipants();
+    
+    promisse.then( (res) => {
+        console.log(res.data);
+
+        res.data.forEach( (msg) => {
+            const contact = createContactElement(msg.name);
+            optionBox.append(contact)
+        })
+    })
+
+}
+
 function renderMessages() {
     const msgbox = document.querySelector(".messages-box");
     msgbox.innerHTML = ""; // Limpar caixa antes de colocar novas mensagens.
+    let lastMessage;
 
     chatMessages.forEach(message => {
         const currMessage = createMessageElement(message);
         msgbox.appendChild(currMessage);
+        lastMessage = currMessage;
     });
+
+    lastMessage.scrollIntoView()
 }
 
 function reloadMessages() {
@@ -120,6 +159,8 @@ function reloadMessages() {
 function toggleSideBar() {
     document.querySelector(".side-bar").classList.toggle("disabled")
     document.querySelector(".side-bar-black").classList.toggle("disabled")
+
+    renderUsers();
 }
 
 // Adicionando ENTER como forma de enviar a mensagem! ;D
@@ -129,5 +170,53 @@ el.onkeydown = (e) => {
         submitMessage();
     }
 }
+
+function getParticipants() 
+{
+    const promisse = axios.get(endpoints.join);
+    promisse.then( (res) => {
+        console.log(res);
+    }, (error) => {
+        console.log("Failed to receive participants!")
+    })
+
+    return promisse;
+}
+
+// Option-box
+
+function selectOption(option) {
+    const el = document.querySelector("#contato")
+    const parent_id = option.parentElement.id;
+    const optionName = option.children[1].innerHTML;
+    //Alterando target da mensagem
+    if(parent_id == "contato")
+    {
+        target = optionName;
+
+        if(target == "Todos") 
+        {
+            selectOption(document.querySelector("#visibility").children[1])
+        }
+    }
+    
+    if(parent_id == "visibility")
+    {
+        if(target == "Todos" && optionName == "Reservadamente") return;
+        messageType = (optionName == "Público") ? "message" : "private_message";
+    }
+    
+    console.log("MessageType : " + messageType+"; " + "target: " + target)
+    document.querySelector(".input-extra-info").innerHTML = `Enviando ${messageType == "message" ? "" : "reservadamente" } para ${target}`
+    
+    // Removendo os selects
+    const checks = document.querySelectorAll(`#${parent_id} .option-check`)
+    checks.forEach(check => {
+        check.classList.add("disabled");
+    });
+    // Adicionando select icon
+    option.children[2].classList.remove("disabled");
+}
+
 
 startup()
