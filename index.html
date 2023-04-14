@@ -18,45 +18,33 @@
     <div class="content">
         <header>
             <img class="logo" src="src/logo.png" alt="Logo do Bate-papo Uol">
-            <img onclick="toggleSideBar()" class="usersButton" src="src/users.png" alt="Botão de users">
+            <img data-test="open-participants" onclick="toggleSideBar()" class="usersButton" src="src/users.png" alt="Botão de users">
         </header>
     
-        <div class="disabled side-bar-black" onclick="toggleSideBar()"></div>
+        <div data-test="overlay" class="disabled side-bar-black" onclick="toggleSideBar()"></div>
         <div class="disabled side-bar">
             <div id="contato" class="option-box">
                 <h1>Escolha um contato para enviar mensagem:</h1>
-                <div onclick="selectOption(this)" class="option">
+                <div data-test="all" onclick="selectOption(this)" class="option">
                     <img class="option-icon" src="src/users.png" alt="Todos">
                     <span class="optionTitle">Todos</span>
-                    <img class="disabled option-check" src="src/check.png" alt="check">
-                </div>
-                
-                <div onclick="selectOption(this)" class="option">
-                    <img class="option-icon" src="src/userIcon.png" alt="Todos">
-                    <span class="optionTitle">João</span>
-                    <img class="disabled option-check" src="src/check.png" alt="check">
-                </div>
-    
-                <div onclick="selectOption(this)" class="option">
-                    <img class="option-icon" src="src/userIcon.png" alt="Todos">
-                    <span class="optionTitle">Maria</span>
-                    <img class="option-check" src="src/check.png" alt="check">
+                    <img data-test="check" class="disabled option-check" src="src/check.png" alt="check">
                 </div>
             </div>
     
             <div id="visibility" class="option-box">
                 <h1>Escolha a visibilidade:</h1>
                 
-                <div onclick="selectOption(this)"class="option">
+                <div data-test="public" onclick="selectOption(this)"class="option">
                     <img class="option-icon" src="src/lockOpen.png" alt="Todos">
                     <span class="optionTitle">Público</span>
-                    <img class="option-check" src="src/check.png" alt="check">
+                    <img data-test="check" class="option-check" src="src/check.png" alt="check">
                 </div>
                 
-                <div onclick="selectOption(this)"class="option">
+                <div data-test="private" onclick="selectOption(this)"class="option">
                     <img class="option-icon" src="src/lockClosed.png" alt="Todos">
                     <span class="optionTitle">Reservadamente</span>
-                    <img class="disabled option-check" src="src/check.png" alt="check">
+                    <img data-test="check" class="disabled option-check" src="src/check.png" alt="check">
                 </div>            
             </div>
         </div>
@@ -83,11 +71,11 @@
         </ul>
     
         <div class="bottom-bar">
-            <div class="input">
+            <div data-test="input-message" class="input">
                 <input class="messageInput" type="text" placeholder="Escreva aqui...">    
-                <span class="input-extra-info">Enviando para Todos</span>
+                <span data-test="recipient" class="input-extra-info">Enviando para Todos</span>
             </div>
-            <img onclick="submitMessage()" src="src/sendIcon.png" alt="Enviar mensagem" class="sendButton">
+            <img data-test="send-message" onclick="submitMessage()" src="src/sendIcon.png" alt="Enviar mensagem" class="sendButton">
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>

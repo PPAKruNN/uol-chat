@@ -76,6 +76,7 @@ function sendMessage(messageTextToSend) {
 function createMessageElement(messageData) {
 
     const el = document.createElement("li")
+    el.dataset.test = "message"
     let connective = "";
 
     if (messageData.type == "message")          connective = "para"
@@ -102,10 +103,10 @@ function createContactElement(name) {
     const el = document.createElement("div")
     
     const contact = `
-    <div onclick="selectOption(this)" class="option">
+    <div data-test="${name == "Todos" ? "all" : "participant"}" onclick="selectOption(this)" class="option">
         <img class="option-icon" src="src/users.png" alt="Todos">
         <span class="optionTitle">${name}</span>
-        <img class="disabled option-check" src="src/check.png" alt="check">
+        <img data-test="check" class="disabled option-check" src="src/check.png" alt="check">
     </div>
     `
     el.innerHTML = contact
@@ -122,16 +123,16 @@ function renderUsers() {
     optionBox.append(createContactElement("Todos")); // Recriando opção de "todos".
 
     const promisse = getParticipants();
-    
+
     promisse.then( (res) => {
         console.log(res.data);
 
         res.data.forEach( (msg) => {
+            if(msg.name == username) return;
             const contact = createContactElement(msg.name);
             optionBox.append(contact)
         })
     })
-
 }
 
 function renderMessages() {
@@ -140,6 +141,8 @@ function renderMessages() {
     let lastMessage;
 
     chatMessages.forEach(message => {
+        if(message.type == "private_message" && message.to != username && message.to != "Todos" && message.from != username) return;
+
         const currMessage = createMessageElement(message);
         msgbox.appendChild(currMessage);
         lastMessage = currMessage;
