@@ -125,6 +125,9 @@ li {
     min-height: 40px;
 
     background-color: #FFFFFF;
+} 
+li span {
+    min-height: min-content;
 }
 
 b {

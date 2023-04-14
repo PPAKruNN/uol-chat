@@ -26,6 +26,7 @@ async function startup() {
         console.log("Deu bom!: " + res.status)
         setInterval( keepAlive, 5000);
         reloadMessages();
+        setInterval( reloadMessages, 3000)
     })
     
     promisse.catch( (err) => {
@@ -54,7 +55,7 @@ function submitMessage() {
    const el = document.querySelector(".messageInput");
    const typedMessage = el.value;
    el.value = "";
-   
+
    sendMessage(typedMessage);
 }
 
@@ -114,6 +115,19 @@ function reloadMessages() {
         console.log("Reload messages!!")
         renderMessages();
     })
+}
+
+function toggleSideBar() {
+    document.querySelector(".side-bar").classList.toggle("disabled")
+    document.querySelector(".side-bar-black").classList.toggle("disabled")
+}
+
+// Adicionando ENTER como forma de enviar a mensagem! ;D
+const el = document.querySelector(".messageInput");
+el.onkeydown = (e) => {
+    if(e.keyCode == 13) {
+        submitMessage();
+    }
 }
 
 startup()
