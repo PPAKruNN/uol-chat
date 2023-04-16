@@ -26,6 +26,7 @@ async function startup() {
         setInterval( keepAlive, 5000);
         reloadMessages();
         setInterval( reloadMessages, 3000)
+        setInterval( renderUsers(), 10000);
     }, (err) => {
         console.log("Deu ruim!: " + err.response.data)
         startup()  
